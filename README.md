@@ -5,5 +5,15 @@ This might be useful if your wifi is lagging or you have intermittent disconnect
 
 The output of the program is a log of the timestamp, if the machine can access a certain host and the ping time for that host
 
-## TODO
-Add graphing to visualize status over time
+## Usage
+```python3 main.py```
+
+Start logging pings
+
+```python3 main.py computername_wifi```
+
+Start logging pings to computername_wifi.csv
+
+```python3 ploy_graphs.py computername_wifi computername2_ethernet```
+
+Plot a graph for pings for computername_wifi and computername2_ethernet
