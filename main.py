@@ -6,7 +6,7 @@ import time
 import sys
 
 HOSTNAME = "google.com"
-SYSTEM_CALL = "ping -D -c 1 " + HOSTNAME
+SYSTEM_CALL = "ping -c 1 " + HOSTNAME
 DEFAULT_LOG_FILE_NAME = 'log'
 LOG_EXTENSION = '.csv'
 SLEEP_DURATION = 1
@@ -16,8 +16,8 @@ def ping_network(log_file):
     while True: 
 
         host_reachable = False
-        ping_time = ''
-        timestamp = ''
+        ping_time = 0.0
+        timestamp = time.time()
 
         # get network details from `ping`
         try:
@@ -29,9 +29,7 @@ def ping_network(log_file):
             res_split = response.split()
             
             # Extract the details
-            timestamp = res_split[0]
-            timestamp = timestamp[1:-1]
-            ping_time = res_split[8].split('=')[1]
+            ping_time = float(res_split[7].split('=')[1])
         except:
             pass
         
