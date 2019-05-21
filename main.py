@@ -10,6 +10,7 @@ SYSTEM_CALL = "ping -c 1 " + HOSTNAME
 DEFAULT_LOG_FILE_NAME = 'log'
 LOG_EXTENSION = '.csv'
 SLEEP_DURATION = 1
+HEADER = 'Time,Reachable,Ping\n'
 
 def ping_network(log_file):
     # Loops until interrupted
@@ -57,6 +58,13 @@ if __name__ == '__main__':
         log_path = args[0]
     log_path += LOG_EXTENSION
     
+    # Try to open the file - if it doesn't open it is empty and needs a header
+    try:
+        log_file = open(log_path, 'r')
+    except:
+        log_file = open(log_path, 'w')
+        log_file.write(HEADER)
+        
     # Open the log file
     log_file = open(log_path, 'a')
     
