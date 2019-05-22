@@ -13,12 +13,15 @@ def read_df_from_path(path: str):
     return df
 
 def plot_data(data):
+    max_ping = 0
     for log_name, log_data in data.items():
         print('Plotting', log_name)
         values = log_data['Ping']
         times = log_data['Time']
         times = [ datetime.fromtimestamp(timestamp) for timestamp in times]
-        plt.plot(times, values, label=log_name)
+        plt.plot(times, values, label=log_name, alpha=0.7)
+        if max(values) > max_ping:
+            max_ping = max(values)
             
     ax = plt.gca()
     ax.set_xlabel('Time')
@@ -26,11 +29,11 @@ def plot_data(data):
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
     ax.legend(loc=0)
-    plt.savefig(PLOT_FILE)
+    plt.yticks(range(0,int(max_ping)+2,5))
+    plt.show()
 
 if __name__ == '__main__':
     args = sys.argv[1:]
-    args = [ 'xps_wifi.csv' ]
     if len(args) == 0:
         print('Program requires a list of .csvs to plot')
     
